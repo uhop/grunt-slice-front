@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title><%= params.title || "Created with grunt-slice-markdown" %></title>
+	</head>
+	<body>
+		<article>
+		<% sections.forEach(function(section){ %>
+			<section <%= section.attributes %>><%= section.content %></section>
+		<% }); %>
+		</article>
+	</body>
+</html>

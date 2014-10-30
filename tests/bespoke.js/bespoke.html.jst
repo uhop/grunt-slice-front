@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title><%= params.title || "Created for bespoke.js with grunt-slice-markdown" %></title>
+    <link rel="stylesheet" type="text/css" href="bespoke.js/bespoke.min.css">
+  </head>
+  <body>
+    <article>
+    <% sections.forEach(function(section){ %>
+      <section><%= section.content %></section>
+    <% }); %>
+    </article>
+    <script src="bespoke.js/bespoke.min.js"></script>
+  </body>
+</html>

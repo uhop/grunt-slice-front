@@ -1,0 +1,52 @@
+{
+  "name": "grunt-slice-markdown",
+  "description": "Slices a Markdown file in segments, generates HTML, and applies a template to the result.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/uhop/grunt-slice-markdown",
+  "author": {
+    "name": "Eugene Lazutkin",
+    "email": "eugene.lazutkin@gmail.com",
+    "url": "http://lazutkin.com/"
+  },
+  "github": "http://github.com/uhop/grunt-slice-markdown",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/uhop/grunt-slice-markdown.git"
+  },
+  "bugs": {
+    "url": "https://github.com/uhop/grunt-slice-markdown/issues"
+  },
+  "licenses": [
+    {
+      "type": "New BSD",
+      "url": "http://github.com/uhop/grunt-slice-markdown/blob/master/LICENSE"
+    }
+  ],
+  "main": "Gruntfile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "marked": "~0.3.2",
+    "lodash.template": "~2.4.1"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.5"
+  },
+  "keywords": [
+    "gruntplugin",
+    "markdown",
+    "slice",
+    "slicer",
+    "template"
+  ]
+}
