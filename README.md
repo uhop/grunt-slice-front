@@ -27,18 +27,20 @@ grunt.loadNpmTasks('grunt-slice-markdown');
 In your project's Gruntfile, add a section named `slice_markdown` to the data object passed into `grunt.initConfig()`.
 
 ```js
-var iconPath = "tests/icons/";
 grunt.initConfig({
-  tight_sprite: {
-    // describe my sprite #1
-    my_sprite1: {
+  slice_markdown: {
+    plain: {
       options: {
-        classPrefix: "",
-        silent: true,
-        hide: iconPath
+        markedOptions: {
+          gfm: true,
+          smartLists: true
+        },
+        templateParams: {
+          title: "Demo"
+        }
       },
-      src: [iconPath + "*/**/*.{png,jpg,jpeg,gif}"],
-      dest: iconPath + "sprite1.png"
+      src:  "tests/demo.md",
+      dest: "tests/demo-plain.html"
     }
   }
 });
