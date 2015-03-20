@@ -1,8 +1,11 @@
-# grunt-slice
+# grunt-slice-markdown
 
-[![Build Status](https://secure.travis-ci.org/uhop/grunt-slice-markdown.png?branch=master)](http://travis-ci.org/uhop/grunt-slice-markdown) [![Dependency Status](https://david-dm.org/uhop/grunt-slice-markdown.png)](https://david-dm.org/uhop/grunt-slice-markdown) [![devDependency Status](https://david-dm.org/uhop/grunt-slice-markdown/dev-status.png)](https://david-dm.org/uhop/grunt-slice-markdown#info=devDependencies)
+[![Build status][travis-image]][travis-url]
+[![Dependencies][deps-image]][deps-url]
+[![devDependencies][dev-deps-image]][dev-deps-url]
+[![NPM version][npm-image]][npm-url]
 
-> Slices a Markdown file in segments, generates HTML, and applies a template to the result.
+> Slices a Markdown file in segments, generates HTML, and applies a template to the result. Useful to generate slide shows.
 
 ## Getting Started
 
@@ -55,4 +58,14 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+- 0.1.1 *refreshed dependencies.*
 - 0.1.0 *the initial release.*
+
+[npm-image]:      https://img.shields.io/npm/v/grunt-slice-markdown.svg
+[npm-url]:        https://npmjs.org/package/grunt-slice-markdown
+[deps-image]:     https://img.shields.io/david/uhop/grunt-slice-markdown.svg
+[deps-url]:       https://david-dm.org/uhop/grunt-slice-markdown
+[dev-deps-image]: https://img.shields.io/david/dev/uhop/grunt-slice-markdown.svg
+[dev-deps-url]:   https://david-dm.org/uhop/grunt-slice-markdown#info=devDependencies
+[travis-image]:   https://img.shields.io/travis/uhop/grunt-slice-markdown.svg
+[travis-url]:     https://travis-ci.org/uhop/grunt-slice-markdown
