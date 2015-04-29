@@ -20,7 +20,7 @@ Yes.
 ## Note #3
 No.
 ************
-:: data-x="1000" data-y="0" data-rotate="90"
+:: data-x="3000" data-y="0" data-rotate="90"
 
 Headerless slide with a list:
 
@@ -30,7 +30,7 @@ Headerless slide with a list:
 * Three.
   1. Enumerated.
 -  -  -  -
-:: data-x="0" data-y="0" data-rotate="180"
+:: data-x="2000" data-y="0" data-rotate="180"
 
 # Enumeration:
 
@@ -41,12 +41,42 @@ Headerless slide with a list:
 1. Three.
    * Bullet.
 ---
-:: data-x="-1000" data-y="0" data-rotate="270"
+:: data-x="1000" data-y="0" data-rotate="270"
 
-# And some code:
+# Some JS code:
 ```js
 grunt.loadTasks("tasks");
 
 grunt.registerTask("default", "slice_markdown");
 grunt.registerTask("test",    "slice_markdown");
 ```
+---
+:: data-x="0" data-y="0"
+
+# Plugins
+
+*[HTML]: Hyper Text Markup Language
+
+[x] 3^rd^ H~2~O, HTML :100: :), ++ins++ <==> ==mark==
+
+[ ] $$P(A | B) = (P(B | A)P(A)) / P(B)$$ ~~typo~~
+---
+:: data-x="-1000" data-y="0"
+
+# Deflists
+
+Term #1
+  : Definition #1
+
+Term #2
+  : Definition #2
+---
+:: data-x="-2000" data-y="0"
+
+# Tables
+
+| Left-Aligned  | Center Aligned  | Right Aligned |
+| :------------ |:---------------:| -----:|
+| col 3 is      | some wordy text | $1600 |
+| col 2 is      | centered        |   $12 |
+| zebra stripes | are neat        |    $1 |

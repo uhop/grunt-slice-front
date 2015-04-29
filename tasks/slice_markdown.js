@@ -1,11 +1,37 @@
 "use strict";
 
 
-var path = require("path");
-var fs   = require("fs");
+var path = require("path"),
+	fs   = require("fs"),
+	hljs = require("highlight.js"),
+	template = require("lodash.template");
 
-var template = require("lodash.template");
-var marked   = require("marked");
+var MarkdownIt = require("markdown-it"),
+	MarkdownItSub   = require("markdown-it-sub"),
+	MarkdownItSup   = require("markdown-it-sup"),
+	MarkdownItFootnote = require("markdown-it-footnote"),
+	MarkdownItDeflist  = require("markdown-it-deflist"),
+	MarkdownItAbbr  = require("markdown-it-abbr"),
+	MarkdownItEmoji = require("markdown-it-emoji"),
+	MarkdownItIns   = require("markdown-it-ins"),
+	MarkdownItMark  = require("markdown-it-mark"),
+	MarkdownItMath  = require("markdown-it-math"),
+	MarkdownItVideo = require("markdown-it-video"),
+	MarkdownItCheckbox = require("markdown-it-checkbox"),
+	MarkdownItSmartarrows = require("markdown-it-smartarrows"),
+	MarkdownItHighlightjs = require("markdown-it-highlightjs"),
+	MarkdownItContainer   = require("markdown-it-container");
+
+
+var classRenderer = {
+			validate: function(params){
+				return params.trim().match(/^class:\s+.*$/);
+			},
+			render: function (tokens, idx) {
+				var m = tokens[idx].info.trim().match(/^class:\s+(.*)$/);
+				return tokens[idx].nesting === 1 ? "<div class=\"" + m[1] + "\">" : "</div>";
+			}
+		};
 
 
 // the main function
@@ -21,8 +47,25 @@ module.exports = function(grunt) {
 					templateFile: path.resolve(__dirname, "../resources/template.jst")
 				});
 
-			var markedOptions = options.markedOptions || {};
-			markedOptions.renderer = new marked.Renderer();
+			var markdownItOptions = options.markdownItOptions || {
+						typographer: true,
+						html:        true
+					},
+				md = MarkdownIt(markdownItOptions).
+					use(MarkdownItAbbr).
+					use(MarkdownItCheckbox).
+					use(MarkdownItDeflist).
+					use(MarkdownItEmoji).
+					use(MarkdownItFootnote).
+					use(MarkdownItHighlightjs).
+					use(MarkdownItIns).
+					use(MarkdownItMark).
+					use(MarkdownItMath).
+					use(MarkdownItSmartarrows).
+					use(MarkdownItSub).
+					use(MarkdownItSup).
+					use(MarkdownItVideo).
+					use(MarkdownItContainer, "class", classRenderer);
 
 			var templateOptions = options.templateOptions || {},
 				templateParams  = options.templateParams  || {};
@@ -44,12 +87,12 @@ module.exports = function(grunt) {
 								if(result){
 									return {
 										attributes: result[1],
-										content:    marked(segment.substr(result[0].length), markedOptions)
+										content: md.render(segment.substr(result[0].length))
 									};
 								}
 								return {
 									attributes: "",
-									content:    marked(segment, markedOptions)
+									content: md.render(segment)
 								};
 							}));
 				});
@@ -69,7 +112,7 @@ module.exports = function(grunt) {
 
 				output.write(tmpl({
 					sections: sections,
-					params:   templateParams
+					params: templateParams
 				}));
 
 				output.end();
