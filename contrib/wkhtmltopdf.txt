@@ -1,0 +1,1 @@
+wkhtmltopdf --zoom 0.1 --viewport-size 1100,850 -O Landscape -s Letter --javascript-delay 2000 --no-stop-slow-scripts --disable-smart-shrinking http://localhost:8080/p/2015-05-31-FP/presentation.html out.pdf
