@@ -58,6 +58,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+- 0.2.1 *refreshed dependencies.*
 - 0.2.0 *switched from marked to MarkedownIt.*
 - 0.1.1 *refreshed dependencies.*
 - 0.1.0 *the initial release.*
