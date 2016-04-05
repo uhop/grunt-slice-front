@@ -1,7 +1,7 @@
 {
   "name": "grunt-slice-markdown",
   "description": "Slices a Markdown file in segments, generates HTML, and applies a template to the result. Useful to generate slide shows.",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "homepage": "https://github.com/uhop/grunt-slice-markdown",
   "author": {
     "name": "Eugene Lazutkin",

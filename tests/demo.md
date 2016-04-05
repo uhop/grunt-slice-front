@@ -57,9 +57,9 @@ grunt.registerTask("test",    "slice_markdown");
 
 *[HTML]: Hyper Text Markup Language
 
-[x] 3^rd^ H~2~O, HTML :100: :), ++ins++ <==> ==mark==
+[x] 3^rd^ H~2~O, HTML :100: :),
 
-[ ] $$P(A | B) = (P(B | A)P(A)) / P(B)$$ ~~typo~~
+[ ] ++ins++ <==> ==mark== ~~typo~~
 ---
 :: data-x="-1000" data-y="0"
 
@@ -80,3 +80,16 @@ Term #2
 | col 3 is      | some wordy text | $1600 |
 | col 2 is      | centered        |   $12 |
 | zebra stripes | are neat        |    $1 |
+
+---
+:: data-x="-3000" data-y="0"
+
+# Formulas
+
+Pythagoran theorem is $$a^2 + b^2 = c^2$$.
+
+Bayes theorem:
+
+$$$
+P(A | B) = (P(B | A)P(A)) / P(B)
+$$$

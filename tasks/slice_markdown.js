@@ -3,7 +3,6 @@
 
 var path = require("path"),
 	fs   = require("fs"),
-	hljs = require("highlight.js"),
 	template = require("lodash.template");
 
 var MarkdownIt = require("markdown-it"),
@@ -33,6 +32,10 @@ var classRenderer = {
 			}
 		};
 
+function defaultAttrProcessor(attributes){
+	return attributes || "";
+}
+
 
 // the main function
 
@@ -51,7 +54,7 @@ module.exports = function(grunt) {
 						typographer: true,
 						html:        true
 					},
-				md = MarkdownIt(markdownItOptions).
+				md = new MarkdownIt(markdownItOptions).
 					use(MarkdownItAbbr).
 					use(MarkdownItCheckbox).
 					use(MarkdownItDeflist).
@@ -68,7 +71,9 @@ module.exports = function(grunt) {
 					use(MarkdownItContainer, "class", classRenderer);
 
 			var templateOptions = options.templateOptions || {},
-				templateParams  = options.templateParams  || {};
+				templateParams  = options.templateParams  || {},
+				attrProcessor = typeof options.attrProcessor == "function" ?
+					options.attrProcessor : defaultAttrProcessor;
 
 			var tmpl = template(fs.readFileSync(options.templateFile, {options: "utf8"}),
 					null, templateOptions);
@@ -80,18 +85,19 @@ module.exports = function(grunt) {
 				var sections = [];
 				file.src.forEach(function(name){
 					sections.push.apply(sections,
-						String(fs.readFileSync(name, {options: "utf8"})).split(options.splitter).
-							map(function(segment){
+						String(fs.readFileSync(name, {options: "utf8"})).
+							split(options.splitter).
+							map(function(segment, index, segments){
 								options.attributes.lastIndex = 0;
 								var result = options.attributes.exec(segment);
 								if(result){
 									return {
-										attributes: result[1],
+										attributes: attrProcessor(result[1], index, segments),
 										content: md.render(segment.substr(result[0].length))
 									};
 								}
 								return {
-									attributes: "",
+									attributes: attrProcessor("", index, segments),
 									content: md.render(segment)
 								};
 							}));

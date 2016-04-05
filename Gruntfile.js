@@ -45,6 +45,15 @@ module.exports = function(grunt) {
 					templateFile: "tests/impress.js/impress.html.jst",
 					templateParams: {
 						title: "Demo"
+					},
+					attrProcessor: function(attributes, index){
+						if(index){
+							if(index % 2){
+								return 'data-x="' + (3000 + 1500 * Math.floor((index - 1) / 2)) + '" data-y="-750"';
+							}
+							return 'data-x="' + (3000 + 1500 * Math.floor((index - 1) / 2)) + '" data-y="750"';
+						}
+						return 'data-x="0" data-y="0" data-scale="4"';
 					}
 				},
 				src:  "tests/demo.md",
