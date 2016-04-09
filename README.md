@@ -58,6 +58,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+- 0.3.1 *refreshed dependencies.*
 - 0.3.0 *added `attrProcessor()`.*
 - 0.2.4 *refreshed dependencies.*
 - 0.2.3 *new dependencies for Grunt 1.0.0.*
