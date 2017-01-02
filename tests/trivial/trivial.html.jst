@@ -11,13 +11,11 @@
 		</style>
 	</head>
 	<body>
-		<article>
+    <p><em>This article was written by <%- page.author || "Unknown" %>.</em></p>
+    <article>
 		<% body.forEach(function(section){ %>
 			<section><%= section %></section>
 		<% }); %>
 		</article>
-    <hr>
-    <h1>Front matter as JSON</h1>
-    <pre><code><%- JSON.stringify(page, null, 2) %></code></pre>
 	</body>
 </html>

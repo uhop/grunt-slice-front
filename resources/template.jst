@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
-		<title><%= params.title || "Web page created with grunt-slice-front" %></title>
+		<title>Web page created with grunt-slice-front</title>
     <!--
 		<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
     -->
@@ -11,11 +11,20 @@
 		</style>
 	</head>
 	<body>
-    <p><em>This article was written by <%- page.author || "Unknown" %>.</em></p>
 		<article>
 		<% body.forEach(function(section){ %>
 			<section><%= section %></section>
 		<% }); %>
+      <hr>
+      <section>
+        <h1>Front matter as JSON</h1>
+        <pre><code><%- JSON.stringify(page, null, 2) %></code></pre>
+      </section>
+      <hr>
+      <section>
+        <h1>Global parameters as JSON</h1>
+        <pre><code><%- JSON.stringify(params, null, 2) %></code></pre>
+      </section>
 		</article>
 	</body>
 </html>
