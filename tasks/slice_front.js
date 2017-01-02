@@ -3,7 +3,8 @@
 
 var path = require("path"),
 	fs   = require("fs"),
-	template = require("lodash.template");
+	template = require("lodash.template"),
+	yaml = require("yaml");
 
 var MarkdownIt = require("markdown-it"),
 	MarkdownItSub   = require("markdown-it-sub"),
@@ -32,21 +33,16 @@ var classRenderer = {
 			}
 		};
 
-function defaultAttrProcessor(attributes){
-	return attributes || "";
-}
-
 
 // the main function
 
 module.exports = function(grunt) {
 	grunt.registerMultiTask("slice_markdown",
-		"Slices a Markdown file in segments, generates HTML, and applies a template to the result.",
+		"Slices a Markdown file in segments separating a front matter in YAML, generates HTML, and applies a template to the result.",
 		function(){
 			var done = this.async(),
 				options = this.options({
 					splitter:     /^(?:\-(?:\s*\-){2,})|(?:_(?:\s*_){2,})|(?:\*(?:\s*\*){2,})\s*$/gm,
-					attributes:   /^(?:\r?\n)*::\s+(.*?)\s*\r?\n/,
 					templateFile: path.resolve(__dirname, "../resources/template.jst")
 				});
 
@@ -71,9 +67,7 @@ module.exports = function(grunt) {
 					use(MarkdownItContainer, "class", classRenderer);
 
 			var templateOptions = options.templateOptions || {},
-				templateParams  = options.templateParams  || {},
-				attrProcessor = typeof options.attrProcessor == "function" ?
-					options.attrProcessor : defaultAttrProcessor;
+				templateParams  = options.templateParams  || {};
 
 			var tmpl = template(fs.readFileSync(options.templateFile, {options: "utf8"}),
 					null, templateOptions);
@@ -87,24 +81,23 @@ module.exports = function(grunt) {
 					sections.push.apply(sections,
 						String(fs.readFileSync(name, {options: "utf8"})).
 							split(options.splitter).
+							filter(function (segment) {
+								// not empty
+								return !/^\s*$/.test(segment);
+							}).
 							map(function(segment, index, segments){
-								options.attributes.lastIndex = 0;
-								var result = options.attributes.exec(segment);
-								if(result){
-									return {
-										attributes: attrProcessor(result[1], index, segments),
-										content: md.render(segment.substr(result[0].length))
-									};
+								if (index) {
+									// body
+									return md.render(segment);
+								} else {
+									// front matter
+									return yaml.eval("---\n  " + segment.split(/\r?\n/g).join("\n  ") + "\n");
 								}
-								return {
-									attributes: attrProcessor("", index, segments),
-									content: md.render(segment)
-								};
 							}));
 				});
 
-				if(!sections){
-					grunt.fatal("task: slice_markdown: " + this.target + " has 0 sections, exiting.");
+				if(sections.length < 1){
+					grunt.fatal("task: slice_front: " + this.target + " has no useful sections, exiting.");
 					done();
 					return;
 				}
@@ -117,7 +110,8 @@ module.exports = function(grunt) {
 				});
 
 				output.write(tmpl({
-					sections: sections,
+					page: sections[0],
+					body: sections.slice(1),
 					params: templateParams
 				}));
 

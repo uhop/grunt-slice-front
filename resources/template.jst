@@ -1,13 +1,20 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title><%= params.title || "Created with grunt-slice-markdown" %></title>
+		<meta name="viewport" content="width=device-width" />
+		<title><%= params.title || "Web page created with grunt-slice-front" %></title>
+    <!--
+		<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    -->
+		<style>
+		</style>
 	</head>
 	<body>
+    <p><em>This article was written by <%- page.author || "Unknown" %>.</em></p>
 		<article>
-		<% sections.forEach(function(section){ %>
-			<section <%= section.attributes %>><%= section.content %></section>
+		<% body.forEach(function(section){ %>
+			<section><%= section %></section>
 		<% }); %>
 		</article>
 	</body>
