@@ -4,7 +4,7 @@
 var path = require("path"),
 	fs   = require("fs"),
 	template = require("lodash.template"),
-	yaml = require("yaml");
+	yaml = require("js-yaml");
 
 var MarkdownIt = require("markdown-it"),
 	MarkdownItContainer = require("markdown-it-container"),
@@ -99,7 +99,8 @@ module.exports = function(grunt) {
 									return md.render(segment);
 								} else {
 									// front matter
-									return yaml.eval("---\n  " + segment.split(/\r?\n/g).join("\n  ") + "\n");
+									return yaml.safeLoad(segment);
+									// return yaml.eval("---\n  " + segment.split(/\r?\n/g).join("\n  ") + "\n");
 								}
 							}));
 				});
