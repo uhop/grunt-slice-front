@@ -7,20 +7,20 @@ var path = require("path"),
 	yaml = require("yaml");
 
 var MarkdownIt = require("markdown-it"),
-	MarkdownItSub   = require("markdown-it-sub"),
-	MarkdownItSup   = require("markdown-it-sup"),
-	MarkdownItFootnote = require("markdown-it-footnote"),
-	MarkdownItDeflist  = require("markdown-it-deflist"),
-	MarkdownItAbbr  = require("markdown-it-abbr"),
-	MarkdownItEmoji = require("markdown-it-emoji"),
-	MarkdownItIns   = require("markdown-it-ins"),
-	MarkdownItMark  = require("markdown-it-mark"),
-	MarkdownItMath  = require("markdown-it-math"),
-	MarkdownItVideo = require("markdown-it-video"),
-	MarkdownItCheckbox = require("markdown-it-checkbox"),
-	MarkdownItSmartarrows = require("markdown-it-smartarrows"),
-	MarkdownItHighlightjs = require("markdown-it-highlightjs"),
-	MarkdownItContainer   = require("markdown-it-container");
+	MarkdownItContainer = require("markdown-it-container"),
+	MarkdownItSub   = req("markdown-it-sub"),
+	MarkdownItSup   = req("markdown-it-sup"),
+	MarkdownItFootnote = req("markdown-it-footnote"),
+	MarkdownItDeflist  = req("markdown-it-deflist"),
+	MarkdownItAbbr  = req("markdown-it-abbr"),
+	MarkdownItEmoji = req("markdown-it-emoji"),
+	MarkdownItIns   = req("markdown-it-ins"),
+	MarkdownItMark  = req("markdown-it-mark"),
+	MarkdownItMath  = req("markdown-it-math"),
+	MarkdownItVideo = req("markdown-it-video"),
+	MarkdownItCheckbox = req("markdown-it-checkbox"),
+	MarkdownItSmartarrows = req("markdown-it-smartarrows"),
+	MarkdownItHighlightjs = req("markdown-it-highlightjs");
 
 
 var classRenderer = {
@@ -32,6 +32,17 @@ var classRenderer = {
 				return tokens[idx].nesting === 1 ? "<div class=\"" + m[1] + "\">" : "</div>";
 			}
 		};
+
+// conditional require()
+
+function req (name) {
+	try {
+		return require(name);
+	} catch (e) {
+		// suppress
+	}
+	return null;
+}
 
 
 // the main function
@@ -51,20 +62,17 @@ module.exports = function(grunt) {
 						html:        true
 					},
 				md = new MarkdownIt(markdownItOptions).
-					use(MarkdownItAbbr).
-					use(MarkdownItCheckbox).
-					use(MarkdownItDeflist).
-					use(MarkdownItEmoji).
-					use(MarkdownItFootnote).
-					use(MarkdownItHighlightjs).
-					use(MarkdownItIns).
-					use(MarkdownItMark).
-					use(MarkdownItMath).
-					use(MarkdownItSmartarrows).
-					use(MarkdownItSub).
-					use(MarkdownItSup).
-					use(MarkdownItVideo).
 					use(MarkdownItContainer, "class", classRenderer);
+
+			// register available plugins
+			[MarkdownItAbbr, MarkdownItCheckbox, MarkdownItDeflist, MarkdownItEmoji,
+				MarkdownItFootnote, MarkdownItHighlightjs, MarkdownItIns, MarkdownItMark,
+				MarkdownItMath, MarkdownItSmartarrows, MarkdownItSub, MarkdownItSup, MarkdownItVideo].
+			forEach(function (plugin) {
+				if (plugin) {
+					md = md.use(plugin);
+				}
+			});
 
 			var templateOptions = options.templateOptions || {},
 				templateParams  = options.templateParams  || {};
