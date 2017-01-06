@@ -58,6 +58,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+- 1.0.1 *Fixed task's name.*
 - 1.0.0 *Started by cloning [grunt-slice-markdown](https://github.com/uhop/grunt-slice-markdown) 0.3.2.*
 
 ## License

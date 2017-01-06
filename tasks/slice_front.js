@@ -37,7 +37,7 @@ var classRenderer = {
 // the main function
 
 module.exports = function(grunt) {
-	grunt.registerMultiTask("slice_markdown",
+	grunt.registerMultiTask("slice_front",
 		"Slices a Markdown file in segments separating a front matter in YAML, generates HTML, and applies a template to the result.",
 		function(){
 			var done = this.async(),

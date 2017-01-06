@@ -10,7 +10,7 @@
 
 module.exports = function(grunt) {
 	grunt.initConfig({
-		slice_markdown: {
+		slice_front: {
 			plain: {
 				options: {
 					templateParams: {
@@ -35,6 +35,6 @@ module.exports = function(grunt) {
 
 	grunt.loadTasks("tasks");
 
-	grunt.registerTask("default", "slice_markdown");
-	grunt.registerTask("test",    "slice_markdown");
+	grunt.registerTask("default", "slice_front");
+	grunt.registerTask("test",    "slice_front");
 };
