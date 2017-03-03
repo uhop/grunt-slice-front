@@ -29,6 +29,27 @@ module.exports = function(grunt) {
 				},
 				src:  "tests/demo.md",
 				dest: "tests/demo-trivial.html"
+			},
+			dynamic: {
+				options: {
+					templateFile: "tests/trivial/trivial.html.jst",
+					templateParams: {
+						title: "Dynamic demo"
+					}
+				},
+				// dynamically mapping files, so it's not just reading demo.md, but also about/index.md, as well.
+				files: [
+					{
+						expand: true,
+						cwd: "tests/",
+						src:  [
+							"*.md",
+							"**/*.md"
+						],
+						dest: "tests/dynamic/",
+						ext: ".html"
+					}
+				]
 			}
 		}
 	});
