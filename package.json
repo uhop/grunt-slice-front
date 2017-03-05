@@ -1,7 +1,7 @@
 {
   "name": "grunt-slice-front",
   "description": "Slices a Markdown file in segments separating a front matter in YAML, generates HTML, and applies a template to the result. Useful to generate web pages.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homepage": "https://github.com/uhop/grunt-slice-front",
   "author": {
     "name": "Eugene Lazutkin",

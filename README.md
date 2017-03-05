@@ -65,7 +65,7 @@ Please consult [Wiki](https://github.com/uhop/grunt-slice-front/wiki).
 
 	// options.templateOptions is a Lodash.template options object. See https://lodash.com/docs#template.
 	templateOptions = {},
-	
+
 	// options.templateParams is an arbitrary hash of task-wide variables, made available to the template as params.
 	templateParams  = {},
 
@@ -90,6 +90,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+- 1.0.3 *Bugfix by @lukehler to support embedded folders, and reduce dependencies.*
+- 1.0.2 *Switched to js-yaml from yaml. Less plugins included by default. New version.*
 - 1.0.1 *Fixed task's name. Made almost all plugins optional.*
 - 1.0.0 *Started by cloning [grunt-slice-markdown](https://github.com/uhop/grunt-slice-markdown) 0.3.2.*
 
