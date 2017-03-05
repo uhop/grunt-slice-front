@@ -2,7 +2,6 @@
 
 
 var path = require("path"),
-	fs   = require("fs"),
 	template = require("lodash.template"),
 	yaml = require("js-yaml");
 
@@ -48,37 +47,54 @@ function req (name) {
 // the main function
 
 module.exports = function(grunt) {
-	grunt.registerMultiTask("slice_front",
+	grunt.registerMultiTask(
+		"slice_front",
 		"Slices a Markdown file in segments separating a front matter in YAML, generates HTML, and applies a template to the result.",
 		function(){
-			var done = this.async(),
-				options = this.options({
-					splitter:     /^(?:\-(?:\s*\-){2,})|(?:_(?:\s*_){2,})|(?:\*(?:\s*\*){2,})\s*$/gm,
-					templateFile: path.resolve(__dirname, "../resources/template.jst")
-				});
+			var done = this.async();
+			var options = this.options({
+				splitter:     /^(?:\-(?:\s*\-){2,})|(?:_(?:\s*_){2,})|(?:\*(?:\s*\*){2,})\s*$/gm,
+				templateFile: path.resolve(__dirname, "../resources/template.jst")
+			});
+			var templateOptions = options.templateOptions || {};
+			var templateParams  = options.templateParams  || {};
 
 			var markdownItOptions = options.markdownItOptions || {
-						typographer: true,
-						html:        true
-					},
-				md = new MarkdownIt(markdownItOptions).
-					use(MarkdownItContainer, "class", classRenderer);
+				typographer: true,
+				html:        true
+			};
+
+			var md = new MarkdownIt(markdownItOptions).
+				use(MarkdownItContainer, "class", classRenderer);
 
 			// register available plugins
-			[MarkdownItAbbr, MarkdownItCheckbox, MarkdownItDeflist, MarkdownItEmoji,
-				MarkdownItFootnote, MarkdownItHighlightjs, MarkdownItIns, MarkdownItMark,
-				MarkdownItMath, MarkdownItSmartarrows, MarkdownItSub, MarkdownItSup, MarkdownItVideo].
-			forEach(function (plugin) {
+			var optionalMarkdownItPlugins = [
+				MarkdownItAbbr,
+				MarkdownItCheckbox,
+				MarkdownItDeflist,
+				MarkdownItEmoji,
+				MarkdownItFootnote,
+				MarkdownItHighlightjs,
+				MarkdownItIns,
+				MarkdownItMark,
+				MarkdownItMath,
+				MarkdownItSmartarrows,
+				MarkdownItSub,
+				MarkdownItSup,
+				MarkdownItVideo
+			];
+			optionalMarkdownItPlugins.forEach(function (plugin) {
 				if (plugin) {
 					md = md.use(plugin);
 				}
 			});
 
-			var templateOptions = options.templateOptions || {},
-				templateParams  = options.templateParams  || {};
 
-			var tmpl = template(fs.readFileSync(options.templateFile, {options: "utf8"}),
-					null, templateOptions);
+			var tmpl = template(
+				grunt.file.read(options.templateFile),
+				null,
+				templateOptions
+			);
 
 			this.files.forEach(function(file){
 
@@ -87,22 +103,24 @@ module.exports = function(grunt) {
 				var sections = [];
 				file.src.forEach(function(name){
 					sections.push.apply(sections,
-						String(fs.readFileSync(name, {options: "utf8"})).
-							split(options.splitter).
-							filter(function (segment) {
-								// not empty
-								return !/^\s*$/.test(segment);
-							}).
-							map(function(segment, index, segments){
-								if (index) {
-									// body
-									return md.render(segment);
-								} else {
-									// front matter
-									return yaml.safeLoad(segment);
-									// return yaml.eval("---\n  " + segment.split(/\r?\n/g).join("\n  ") + "\n");
-								}
-							}));
+						String(
+							grunt.file.read(name, {options: "utf8"})).
+								split(options.splitter).
+								filter(function (segment) {
+									// not empty
+									return !/^\s*$/.test(segment);
+								}).
+								map(function(segment, index, segments){
+									if (index) {
+										// body
+										return md.render(segment);
+									} else {
+										// front matter
+										return yaml.safeLoad(segment);
+										// return yaml.eval("---\n  " + segment.split(/\r?\n/g).join("\n  ") + "\n");
+									}
+								})
+						);
 				});
 
 				if(sections.length < 1){
@@ -113,18 +131,16 @@ module.exports = function(grunt) {
 
 				// create a file
 
-				var output = fs.createWriteStream(file.dest);
-				output.on("finish", function(){
-					done();
+				var results = tmpl({
+						page: sections[0],
+						body: sections.slice(1),
+						params: templateParams
 				});
 
-				output.write(tmpl({
-					page: sections[0],
-					body: sections.slice(1),
-					params: templateParams
-				}));
+				grunt.file.write(file.dest, results);
 
-				output.end();
+				done();
+
 			});
 		}
 	);

@@ -3,4 +3,5 @@ npm-debug.log
 tmp
 *.sublime-*
 tests/demo*.html
+tests/**/*.html
 yarn.lock
