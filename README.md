@@ -90,6 +90,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+- 1.0.4 *Refreshed dependencies.*
 - 1.0.3 *Bugfix by @lukehler to support embedded folders, and reduce dependencies.*
 - 1.0.2 *Switched to js-yaml from yaml. Less plugins included by default. New version.*
 - 1.0.1 *Fixed task's name. Made almost all plugins optional.*
@@ -104,6 +105,6 @@ BSD
 [deps-image]:     https://img.shields.io/david/uhop/grunt-slice-front.svg
 [deps-url]:       https://david-dm.org/uhop/grunt-slice-front
 [dev-deps-image]: https://img.shields.io/david/dev/uhop/grunt-slice-front.svg
-[dev-deps-url]:   https://david-dm.org/uhop/grunt-slice-front#info=devDependencies
+[dev-deps-url]:   https://david-dm.org/uhop/grunt-slice-front?type=dev
 [travis-image]:   https://img.shields.io/travis/uhop/grunt-slice-front.svg
 [travis-url]:     https://travis-ci.org/uhop/grunt-slice-front

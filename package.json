@@ -1,7 +1,7 @@
 {
   "name": "grunt-slice-front",
   "description": "Slices a Markdown file in segments separating a front matter in YAML, generates HTML, and applies a template to the result. Useful to generate web pages.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "homepage": "https://github.com/uhop/grunt-slice-front",
   "author": {
     "name": "Eugene Lazutkin",
@@ -21,26 +21,22 @@
   "directories": {
     "test": "tests"
   },
-  "engines": {
-    "node": ">= 0.12",
-    "iojs": ">=1.8"
-  },
   "scripts": {
     "test": "grunt test"
   },
   "dependencies": {
-    "highlight.js": "^9.0.0",
-    "js-yaml": "^3.7.0",
+    "highlight.js": "^9.12.0",
+    "js-yaml": "^3.10.0",
     "lodash.template": "^4.4.0",
-    "markdown-it": "^8.2.2",
+    "markdown-it": "^8.4.0",
     "markdown-it-container": "^2.0.0"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
     "markdown-it-abbr": "^1.0.4",
     "markdown-it-checkbox": "^1.1.0",
-    "markdown-it-deflist": "^2.0.1",
-    "markdown-it-emoji": "^1.3.0",
+    "markdown-it-deflist": "^2.0.3",
+    "markdown-it-emoji": "^1.4.0",
     "markdown-it-footnote": "^3.0.1",
     "markdown-it-ins": "^2.0.0",
     "markdown-it-mark": "^2.0.0",
