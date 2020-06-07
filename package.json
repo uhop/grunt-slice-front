@@ -27,7 +27,7 @@
   "dependencies": {
     "highlight.js": "^9.12.0",
     "js-yaml": "^3.10.0",
-    "lodash.template": "^4.4.0",
+    "lodash.template": "^4.5.0",
     "markdown-it": "^8.4.0",
     "markdown-it-container": "^2.0.0"
   },
